@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .view-page {
+      background: #181926;
+      min-height: 100vh;
+      padding: 30px 20px;
+      margin-top: -20px;
+    }
+    .page-title {
+      text-align: center;
+      color: #8aadf4;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+    .meme-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+      height: 100%;
+    }
+    .meme-card:hover {
+      transform: translateY(-5px);
+    }
+    .meme-card img {
+      height: 250px;
+      object-fit: cover;
+    }
+    .card-body {
+      color: white;
+      text-align: center;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+  </style>
+
+  <div class="view-page">
+    <h1 class="page-title">View Memes</h1>
+    <div class="container-fluid">
+      <div class="row g-4">
+        {% for meme in memes %}
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="meme-card">
+              <img src="{{ meme.image.url }}" class="card-img-top" alt="{{ meme.title }}" />
+              <div class="card-body">
+                <h5 class="card-title">{{ meme.title }}</h5>
+                <p class="card-text">Uploaded at: {{ meme.uploaded_at }}</p>
+                <div class="btn-group">
+                  <a href="{% url 'update' id=meme.id %}" class="btn btn-primary">Edit</a>
+                  <a href="{% url 'delete' id=meme.id %}" class="btn btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .container1 {
+      background: #181926;
+      padding: 90px 10px 60px;
+      color: white;
+      text-align: center;
+      margin-top: -20px;
+    }
+    
+    .container1 h1 {
+      color: #8aadf4;
+      font-size: 45px;
+      font-weight: bold;
+    }
+    .container1 p {
+      color: #b7bdf8;
+      font-size: 25px;
+      font-weight: bold;
+    }
+    
+    .container2 {
+      background: #1c1d2c;
+      padding: 90px 10px 40px;
+      margin-bottom: -30px;
+    }
+    
+    .section-title {
+      color: #8aadf4;
+      font-size: 45px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .meme-img {
+      height: 250px;
+      object-fit: cover;
+    }
+  </style>
+
+  <div class="container1">
+    <h1>Welcome to Meme Page</h1>
+    <p>Create, Upload and Share Funny Memes Easily</p>
+    <a href="{% url 'post' %}" class="btn btn-primary mt-3">Upload Meme</a>
+  </div>
+
+  <div class="container2">
+    <h2 class="section-title">Latest Memes</h2>
+    <div class="row">
+      {% for meme in memes|slice:':3' %}
+        <div class="col-md-4 mb-4">
+          <div class="card shadow">
+            <img src="{{ meme.image.url }}" class="card-img-top meme-img" alt="{{ meme.title }}" />
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ meme.title }}</h5>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center">No memes uploaded yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
